@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
+
 const CurrencyConverter: React.FC = () => {
   const [amount, setAmount] = useState<number>(1);
-  const [fromCurrency, setFromCurrency] = useState<string>('USD');
-  const [toCurrency, setToCurrency] = useState<string>('EUR');
+  const [fromCurrency, setFromCurrency] = useState<string>("USD");
+  const [toCurrency, setToCurrency] = useState<string>("EUR");
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
+  const apiKey = process.env.REACT_APP_CURRENCY_CONVERTER;
+  const symbols = 'USD,EUR,AUD,CAD,PLN,MXN';
+
   useEffect(() => {
-    // Fetch exchange rates from an API (e.g., exchangeratesapi.io)
-    fetch(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}&apikey=${CURRENCY_CONVERTER}`)
+    fetch(
+      `http://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.rates && data.rates[toCurrency]) {
@@ -19,21 +24,23 @@ const CurrencyConverter: React.FC = () => {
         }
       })
       .catch((error) => {
-        console.error('Error fetching exchange rates:', error);
+        console.error("Error fetching exchange rates:", error);
         setExchangeRate(null);
       });
+      // eslint-disable-next-line
   }, [fromCurrency, toCurrency]);
 
   useEffect(() => {
     if (exchangeRate !== null) {
-      setConvertedAmount(amount * exchangeRate);
+      setConvertedAmount(amount * exchangeRate); 
     } else {
       setConvertedAmount(null);
     }
-  }, [amount, exchangeRate]);
+  }, [amount, exchangeRate, apiKey]);
+  
 
   return (
-    <div className="p-4">
+    <div className=" p-4 ml-10">
       <h2 className="text-2xl font-semibold mb-2">Currency Converter</h2>
       <div className="flex flex-col">
         <input
@@ -47,9 +54,12 @@ const CurrencyConverter: React.FC = () => {
           onChange={(e) => setFromCurrency(e.target.value)}
           className="border p-2 mb-2"
         >
-          <option value="USD">USD</option>
           <option value="EUR">EUR</option>
-          {/* Add more currency options as needed */}
+          <option value="USD">USD</option>
+          <option value="AUD">AUD</option>
+          <option value="CAD">CAD</option>
+          <option value="CAD">PLN</option>
+          <option value="CAD">MXN</option>
         </select>
         <select
           value={toCurrency}
@@ -58,13 +68,16 @@ const CurrencyConverter: React.FC = () => {
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
-          {/* Add more currency options as needed */}
+          <option value="AUD">AUD</option>
+          <option value="CAD">CAD</option>
+          <option value="CAD">PLN</option>
+          <option value="CAD">MXN</option>
         </select>
       </div>
       {exchangeRate !== null ? (
         <p className="mt-2">
-          {amount} {fromCurrency} is approximately{' '}
-          {convertedAmount?.toFixed(2)} {toCurrency}
+          {amount} {fromCurrency} is approximately {convertedAmount?.toFixed(2)}{" "}
+          {toCurrency}
         </p>
       ) : (
         <p className="text-red-600 mt-2">Unable to fetch exchange rate data.</p>
@@ -74,3 +87,4 @@ const CurrencyConverter: React.FC = () => {
 };
 
 export default CurrencyConverter;
+
