@@ -58,8 +58,8 @@ const CurrencyConverter: React.FC = () => {
           <option value="USD">USD</option>
           <option value="AUD">AUD</option>
           <option value="CAD">CAD</option>
-          <option value="CAD">PLN</option>
-          <option value="CAD">MXN</option>
+          <option value="PLN">PLN</option>
+          <option value="MXN">MXN</option>
         </select>
         <select
           value={toCurrency}
@@ -70,8 +70,8 @@ const CurrencyConverter: React.FC = () => {
           <option value="USD">USD</option>
           <option value="AUD">AUD</option>
           <option value="CAD">CAD</option>
-          <option value="CAD">PLN</option>
-          <option value="CAD">MXN</option>
+          <option value="PLN">PLN</option>
+          <option value="MXN">MXN</option>
         </select>
       </div>
       {exchangeRate !== null ? (
