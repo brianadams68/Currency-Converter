@@ -7,12 +7,12 @@ const CurrencyConverter: React.FC = () => {
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
-  const apiKey = process.env.CURRENCY_CONVERTER;
+  const apiKey = process.env.REACT_APP_CURRENCY_CONVERTER;
   const symbols = 'USD,EUR,AUD,CAD,PLN,MXN';
 
   useEffect(() => {
     fetch(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
+      `https://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
     )
       .then((response) => response.json())
       .then((data) => {
