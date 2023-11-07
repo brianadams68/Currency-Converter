@@ -12,7 +12,7 @@ const CurrencyConverter: React.FC = () => {
 
   useEffect(() => {
     fetch(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
+      `https://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
     )
       .then((response) => response.json())
       .then((data) => {
