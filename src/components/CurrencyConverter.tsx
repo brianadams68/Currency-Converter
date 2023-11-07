@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 const CurrencyConverter: React.FC = () => {
   const [amount, setAmount] = useState<number>(1);
   const [fromCurrency, setFromCurrency] = useState<string>("USD");
