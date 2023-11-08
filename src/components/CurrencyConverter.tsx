@@ -47,7 +47,7 @@ const CurrencyConverter: React.FC = () => {
         <select
           value={fromCurrency}
           onChange={(e) => setFromCurrency(e.target.value)}
-          className="from border p-2 mb-2"
+          className="from border border-sky-500 p-2 mb-2"
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
@@ -60,7 +60,7 @@ const CurrencyConverter: React.FC = () => {
         <select
           value={toCurrency}
           onChange={(e) => setToCurrency(e.target.value)}
-          className="to border p-2 mb-2"
+          className="to border border-sky-500 p-2 mb-2"
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
