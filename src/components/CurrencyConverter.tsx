@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const CurrencyConverter: React.FC = () => {
   const [amount, setAmount] = useState<number>(1);
@@ -8,7 +8,7 @@ const CurrencyConverter: React.FC = () => {
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
   const apiKey = process.env.REACT_APP_CURRENCY_CONVERTER;
-  const symbols = 'USD,EUR,AUD,CAD,PLN,MXN,GBP';
+  const symbols = "USD,EUR,AUD,CAD,PLN,MXN,GBP,ZAR,BRL,CNY,NZD";
 
   useEffect(() => {
     fetch(
@@ -27,18 +27,16 @@ const CurrencyConverter: React.FC = () => {
         console.error("Error fetching exchange rates:", error);
         setExchangeRate(null);
       });
-      // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [fromCurrency, toCurrency]);
-  
 
   useEffect(() => {
     if (exchangeRate !== null) {
-      setConvertedAmount(amount * exchangeRate); 
+      setConvertedAmount(amount * exchangeRate);
     } else {
       setConvertedAmount(null);
     }
   }, [amount, exchangeRate, apiKey]);
-  
 
   return (
     <div className="test p-4 ml-10 border border-sky-500">
@@ -56,6 +54,10 @@ const CurrencyConverter: React.FC = () => {
           <option value="CAD">CAD</option>
           <option value="PLN">PLN</option>
           <option value="MXN">MXN</option>
+          <option value="ZAR">ZAR</option>
+          <option value="BRL">BRL</option>
+          <option value="CNY">CNY</option>
+          <option value="NZD">NZD</option>
         </select>
         <select
           value={toCurrency}
@@ -69,6 +71,10 @@ const CurrencyConverter: React.FC = () => {
           <option value="CAD">CAD</option>
           <option value="PLN">PLN</option>
           <option value="MXN">MXN</option>
+          <option value="ZAR">ZAR</option>
+          <option value="BRL">BRL</option>
+          <option value="CNY">CNY</option>
+          <option value="NZD">NZD</option>
         </select>
         <input
           type="number"
@@ -90,4 +96,3 @@ const CurrencyConverter: React.FC = () => {
 };
 
 export default CurrencyConverter;
-
