@@ -1,14 +1,12 @@
-import { Config as ImportedConfig } from 'tailwindcss'
-
-type Config = {
-  content: string[];
+module.exports = {
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: false,
   theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': string;
-        'gradient-conic': string;
-      };
-    };
-  };
-  plugins: never[];
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 };
+

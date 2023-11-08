@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 const CurrencyConverter: React.FC = () => {
   const [amount, setAmount] = useState<number>(1);
   const [fromCurrency, setFromCurrency] = useState<string>("USD");
@@ -9,16 +8,17 @@ const CurrencyConverter: React.FC = () => {
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
   const apiKey = process.env.REACT_APP_CURRENCY_CONVERTER;
-  const symbols = 'USD,EUR,AUD,CAD,PLN,MXN';
+  const symbols = 'USD,EUR,AUD,CAD,PLN,MXN,GBP';
 
   useEffect(() => {
     fetch(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
+      `https://api.freecurrencyapi.com/v1/latest?apikey=${apiKey}&symbols=${symbols}`
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.rates && data.rates[toCurrency]) {
-          setExchangeRate(data.rates[toCurrency]);
+        //console.log("API Response:", data); // Log the entire API response
+        if (data.data && data.data[toCurrency]) {
+          setExchangeRate(data.data[toCurrency]);
         } else {
           setExchangeRate(null);
         }
@@ -29,6 +29,7 @@ const CurrencyConverter: React.FC = () => {
       });
       // eslint-disable-next-line
   }, [fromCurrency, toCurrency]);
+  
 
   useEffect(() => {
     if (exchangeRate !== null) {
@@ -40,39 +41,41 @@ const CurrencyConverter: React.FC = () => {
   
 
   return (
-    <div className=" p-4 ml-10">
+    <div className="test p-4 ml-10 border border-sky-500">
       <h2 className="text-2xl font-semibold mb-2">Currency Converter</h2>
       <div className="flex flex-col">
+        <select
+          value={fromCurrency}
+          onChange={(e) => setFromCurrency(e.target.value)}
+          className="from border border-sky-500 p-2 mb-2"
+        >
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
+          <option value="AUD">AUD</option>
+          <option value="CAD">CAD</option>
+          <option value="PLN">PLN</option>
+          <option value="MXN">MXN</option>
+        </select>
+        <select
+          value={toCurrency}
+          onChange={(e) => setToCurrency(e.target.value)}
+          className="to border border-sky-500 p-2 mb-2"
+        >
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
+          <option value="AUD">AUD</option>
+          <option value="CAD">CAD</option>
+          <option value="PLN">PLN</option>
+          <option value="MXN">MXN</option>
+        </select>
         <input
           type="number"
           value={amount}
           onChange={(e) => setAmount(parseFloat(e.target.value))}
           className="border p-2 mb-2"
         />
-        <select
-          value={fromCurrency}
-          onChange={(e) => setFromCurrency(e.target.value)}
-          className="border p-2 mb-2"
-        >
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-          <option value="AUD">AUD</option>
-          <option value="CAD">CAD</option>
-          <option value="CAD">PLN</option>
-          <option value="CAD">MXN</option>
-        </select>
-        <select
-          value={toCurrency}
-          onChange={(e) => setToCurrency(e.target.value)}
-          className="border p-2 mb-2"
-        >
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
-          <option value="AUD">AUD</option>
-          <option value="CAD">CAD</option>
-          <option value="CAD">PLN</option>
-          <option value="CAD">MXN</option>
-        </select>
       </div>
       {exchangeRate !== null ? (
         <p className="mt-2">
