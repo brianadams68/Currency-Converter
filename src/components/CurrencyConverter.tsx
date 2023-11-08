@@ -8,16 +8,17 @@ const CurrencyConverter: React.FC = () => {
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
 
   const apiKey = process.env.REACT_APP_CURRENCY_CONVERTER;
-  const symbols = 'USD,EUR,AUD,CAD,PLN,MXN';
+  const symbols = 'USD,EUR,AUD,CAD,PLN,MXN,GBP';
 
   useEffect(() => {
     fetch(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}&symbols=${symbols}`
+      `https://api.freecurrencyapi.com/v1/latest?apikey=${apiKey}&symbols=${symbols}`
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.rates && data.rates[toCurrency]) {
-          setExchangeRate(data.rates[toCurrency]);
+        //console.log("API Response:", data); // Log the entire API response
+        if (data.data && data.data[toCurrency]) {
+          setExchangeRate(data.data[toCurrency]);
         } else {
           setExchangeRate(null);
         }
@@ -28,6 +29,7 @@ const CurrencyConverter: React.FC = () => {
       });
       // eslint-disable-next-line
   }, [fromCurrency, toCurrency]);
+  
 
   useEffect(() => {
     if (exchangeRate !== null) {
@@ -55,6 +57,7 @@ const CurrencyConverter: React.FC = () => {
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
           <option value="AUD">AUD</option>
           <option value="CAD">CAD</option>
           <option value="PLN">PLN</option>
@@ -67,6 +70,7 @@ const CurrencyConverter: React.FC = () => {
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
+          <option value="GBP">GBP</option>
           <option value="AUD">AUD</option>
           <option value="CAD">CAD</option>
           <option value="PLN">PLN</option>
