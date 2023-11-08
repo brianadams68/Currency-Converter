@@ -41,19 +41,13 @@ const CurrencyConverter: React.FC = () => {
   
 
   return (
-    <div className=" p-4 ml-10">
+    <div className="test p-4 ml-10 border border-sky-500">
       <h2 className="text-2xl font-semibold mb-2">Currency Converter</h2>
       <div className="flex flex-col">
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(parseFloat(e.target.value))}
-          className="border p-2 mb-2"
-        />
         <select
           value={fromCurrency}
           onChange={(e) => setFromCurrency(e.target.value)}
-          className="border p-2 mb-2"
+          className="from border p-2 mb-2"
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
@@ -66,7 +60,7 @@ const CurrencyConverter: React.FC = () => {
         <select
           value={toCurrency}
           onChange={(e) => setToCurrency(e.target.value)}
-          className="border p-2 mb-2"
+          className="to border p-2 mb-2"
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
@@ -76,6 +70,12 @@ const CurrencyConverter: React.FC = () => {
           <option value="PLN">PLN</option>
           <option value="MXN">MXN</option>
         </select>
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(parseFloat(e.target.value))}
+          className="border p-2 mb-2"
+        />
       </div>
       {exchangeRate !== null ? (
         <p className="mt-2">
