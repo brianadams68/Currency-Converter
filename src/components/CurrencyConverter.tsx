@@ -39,7 +39,7 @@ const CurrencyConverter: React.FC = () => {
   }, [amount, exchangeRate, apiKey]);
 
   return (
-    <div className="test p-4 ml-10 border border-sky-500">
+    <div className="test p-4 ml-10 border-2 rounded-lg border-sky-500">
       <h2 className="text-2xl font-semibold mb-2">Currency Converter</h2>
       <div className="flex flex-col">
         <select
